@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.1-API", "1.1-API", "{C7A3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2-Teste", "1.2-Teste", "{EB02A80F-C42A-4A2B-B4DA-77E41F401978}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalThings.Api.Test", "GlobalThings.Api.Test\GlobalThings.Api.Test.csproj", "{FEFA3EE5-A411-4450-BB5A-63AB8E0622E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalThings.Api.Test", "GlobalThings.Api.Test\GlobalThings.Api.Test.csproj", "{FEFA3EE5-A411-4450-BB5A-63AB8E0622E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

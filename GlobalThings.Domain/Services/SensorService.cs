@@ -96,7 +96,7 @@ namespace GlobalThings.Domain.Services
 
             return storedSensor;
         }
-        
+
         private async Task<EquipamentModel> FindEquipament(string equipamentId)
         {
             var storedSensor = await _unitOfWork.EquipamentRepository.FindById(equipamentId);

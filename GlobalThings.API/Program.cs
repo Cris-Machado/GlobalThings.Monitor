@@ -1,5 +1,8 @@
 using GlobalThings.API.Extentions;
 using GlobalThings.Domain.Configuration;
+using GlobalThings.Domain.Jobs;
+using Hangfire;
+using Hangfire.MemoryStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,12 +13,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<MonitorConfiguration>(builder.Configuration);
+
+builder.Services.AddHangfire(op =>
+{
+    op.UseMemoryStorage();
+});
+builder.Services.AddHangfireServer();
+
 builder.Services.AddNativeIoC(builder.Configuration);
 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -28,4 +38,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseHangfireDashboard();
+
+RecurringJob.AddOrUpdate<SensorMonitoringJob>(nameof(SensorMonitoringJob), x => x.MonitorSensorsAsync(), "*/5 * * * *");
+
 app.Run();
+

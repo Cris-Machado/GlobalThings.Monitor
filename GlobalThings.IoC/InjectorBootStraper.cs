@@ -1,6 +1,8 @@
 ﻿using GlobalThings.Domain.Configuration;
+using GlobalThings.Domain.Interfaces.Jobs;
 using GlobalThings.Domain.Interfaces.Repositories;
 using GlobalThings.Domain.Interfaces.Services;
+using GlobalThings.Domain.Jobs;
 using GlobalThings.Domain.Services;
 using GlobalThings.Repository.Context;
 using GlobalThings.Repository.Repositories;
@@ -31,6 +33,11 @@ namespace GlobalThings.IoC
             services.AddTransient<ISensorService, SensorService>();
             services.AddTransient<IEquipamentService, EquipamentService>();
             services.AddTransient<IMeasurementService, MeasurementService>();
+            services.AddTransient<IEmailService, EmailService>();
+            #endregion
+
+            #region ## Jobs
+            services.AddTransient<ISensorMonitoringJob, SensorMonitoringJob>();
             #endregion
         }
     }

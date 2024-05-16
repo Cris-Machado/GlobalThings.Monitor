@@ -69,7 +69,8 @@ namespace GlobalThings.Repository.Repositories.Base
             if (string.IsNullOrEmpty(modelId))
             {
                 modelId = ObjectId.GenerateNewId().ToString();
-                PropertyInfo id = typeof(TModel).GetProperties().FirstOrDefault(e => e.Name == "Id");
+                PropertyInfo id = typeof(TModel).GetProperties()
+                    .FirstOrDefault(e => e.Name == "Id");
                 id.SetValue(model, modelId);
             }
 

@@ -31,7 +31,7 @@ namespace GlobalThings.Domain.Services
 
             foreach (var item in storedSensors)
                 item.Measurements.OrderByDescending(x => x.DateTime).Take(10).ToList();
-        
+
             return storedSensors;
         }
         #endregion
