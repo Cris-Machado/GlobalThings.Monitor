@@ -23,6 +23,7 @@ namespace GlobalThings.Domain.Jobs
 
         public async Task MonitorSensorsAsync()
         {
+            try { 
             var sensors = await _unitOfWork.SensorRepository.ListAllActive();
 
             foreach (var sensor in sensors)
@@ -56,6 +57,11 @@ namespace GlobalThings.Domain.Jobs
                     message.AppendLine("As medições do sensor de código '" + sensor.Code + "' estão dentro da margem de erro");
                     _emailService.SendEmail(message.ToString());
                 }
+            }
+            }catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw new Exception(ex.Message);
             }
         }
     }

@@ -60,8 +60,7 @@ namespace GlobalThings.Domain.Services
             }
             catch (Exception ex)
             {
-
-                throw;
+                throw new Exception(ex.Message);
             }
 
         }
