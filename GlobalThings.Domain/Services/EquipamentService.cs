@@ -30,7 +30,7 @@ namespace GlobalThings.Domain.Services
             var storedSensors = await _unitOfWork.SensorRepository.WhereList(x => x.EquipamentId == equipamentId);
 
             foreach (var item in storedSensors)
-                item.Measurements.OrderByDescending(x => x.DateTime).Take(10).ToList();
+               item.Measurements = item.Measurements.OrderByDescending(x => x.DateTime).Take(10).ToList();
 
             return storedSensors;
         }

@@ -33,17 +33,19 @@ namespace GlobalThings.Domain.Jobs
                 int consecutiveOutOfBounds = 0;
                 foreach (var measurement in measurements.OrderByDescending(x => x.DateTime).Take(5))
                 {
-                    if (measurement.Value < 1 || measurement.Value > 50)
-                        consecutiveOutOfBounds++;
-                    else
-                        consecutiveOutOfBounds = 0;
-                    break;
+                        if (measurement.Value < 1 || measurement.Value > 50)
+                            consecutiveOutOfBounds++;
+                        else
+                        {
+                            consecutiveOutOfBounds = 0;
+                            break;
+                        }
                 }
 
                 if (consecutiveOutOfBounds >= 5)
                 {
                     var message = new StringBuilder();
-                    message.Append("Alerta!!");
+                    message.Append("Alerta!! ");
                     message.AppendLine("O sensor de código '" + sensor.Code + "' ");
                     message.Append("teve seus ultimos cinco registros de medição fora da zona segura");
                     _emailService.SendEmail(message.ToString());
@@ -53,7 +55,7 @@ namespace GlobalThings.Domain.Jobs
                 if (average >= -1 && average <= 3 || average >= 48 && average <= 52)
                 {
                     var message = new StringBuilder();
-                    message.Append("Alerta!!");
+                    message.AppendLine("Alerta!! ");
                     message.AppendLine("As medições do sensor de código '" + sensor.Code + "' estão dentro da margem de erro");
                     _emailService.SendEmail(message.ToString());
                 }

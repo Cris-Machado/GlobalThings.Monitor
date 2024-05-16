@@ -1,4 +1,5 @@
-﻿using GlobalThings.Domain.Interfaces.Services;
+﻿using GlobalThings.Domain.Entities;
+using GlobalThings.Domain.Interfaces.Services;
 using GlobalThings.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -55,10 +56,14 @@ namespace GlobalThings.API.Controllers
         [SwaggerOperation("Criar equipamento")]
         [ProducesResponseType(typeof(EquipamentModel), (int)HttpStatusCode.OK)]
         [HttpPost("create-equipament")]
-        public async Task<IActionResult> CreateEquipament([FromBody] EquipamentModel model)
+        public async Task<IActionResult> CreateEquipament([FromBody] EquipamentDto dto)
         {
             try
             {
+                var model = new EquipamentModel
+                {
+                    Name = dto.Name
+                };
                 return Ok(await _equipamentService.CreateEquipament(model));
             }
             catch (Exception ex)
@@ -70,10 +75,14 @@ namespace GlobalThings.API.Controllers
         [SwaggerOperation("Atualizar equipamento")]
         [ProducesResponseType(typeof(EquipamentModel), (int)HttpStatusCode.OK)]
         [HttpPut("update-equipament")]
-        public async Task<IActionResult> UpdateEquipament([FromBody] EquipamentModel model)
+        public async Task<IActionResult> UpdateEquipament([FromBody] EquipamentDto dto, [FromQuery] string id)
         {
             try
             {
+                var model = new EquipamentModel { 
+                    Id = id,
+                    Name = dto.Name 
+                };
                 return Ok(await _equipamentService.UpdateEquipament(model));
             }
             catch (Exception ex)

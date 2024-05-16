@@ -1,4 +1,5 @@
-﻿using GlobalThings.Domain.Interfaces.Services;
+﻿using GlobalThings.Domain.Entities;
+using GlobalThings.Domain.Interfaces.Services;
 using GlobalThings.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,11 +41,16 @@ namespace GlobalThings.API.Controllers
         [SwaggerOperation("Criar medição")]
         [ProducesResponseType(typeof(MeasurementModel), (int)HttpStatusCode.OK)]
         [HttpPost("create-measurement")]
-        public async Task<IActionResult> CreateMeasurement([FromBody] MeasurementModel model, [FromQuery] string sensorId)
+        public async Task<IActionResult> CreateMeasurement([FromBody] MeasurementDto dto)
         {
             try
             {
-                return Ok(await _measurementService.CreateMeasurement(model, sensorId));
+                var model = new MeasurementModel
+                {
+                    Value = dto.Value,
+                    DateTime = DateTime.Now,
+                };
+                return Ok(await _measurementService.CreateMeasurement(model, dto.SensorId));
             }
             catch (Exception ex)
             {

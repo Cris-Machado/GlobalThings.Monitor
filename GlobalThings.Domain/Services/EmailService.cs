@@ -22,7 +22,7 @@ namespace GlobalThings.Domain.Services
             {
                 var smtpClient = new SmtpClient(_options.Value.SmtpSettings.Server, _options.Value.SmtpSettings.Port);
                 smtpClient.EnableSsl = true;
-                smtpClient.Timeout = 60 * 60;
+                smtpClient.Timeout = 120 * 120;
                 smtpClient.UseDefaultCredentials = false;
                 smtpClient.Credentials = new NetworkCredential(_options.Value.SmtpSettings.Username, _options.Value.SmtpSettings.Password);
 

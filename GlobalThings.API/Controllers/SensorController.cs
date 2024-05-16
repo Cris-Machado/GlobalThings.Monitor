@@ -1,4 +1,5 @@
-﻿using GlobalThings.Domain.Interfaces.Services;
+﻿using GlobalThings.Domain.Entities;
+using GlobalThings.Domain.Interfaces.Services;
 using GlobalThings.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,10 +41,14 @@ namespace GlobalThings.API.Controllers
         [SwaggerOperation("Criar sensor")]
         [ProducesResponseType(typeof(SensorModel), (int)HttpStatusCode.OK)]
         [HttpPost("create-sensor")]
-        public async Task<IActionResult> CreateSensor([FromBody] SensorModel model)
+        public async Task<IActionResult> CreateSensor([FromBody] SensorDto dto)
         {
             try
             {
+                var model = new SensorModel
+                {
+                    Code = dto.Code,
+                };
                 return Ok(await _sensorService.CreateSensor(model));
             }
             catch (Exception ex)
@@ -70,10 +75,15 @@ namespace GlobalThings.API.Controllers
         [SwaggerOperation("Atualizar sensor")]
         [ProducesResponseType(typeof(SensorModel), (int)HttpStatusCode.OK)]
         [HttpPut("update-sensor")]
-        public async Task<IActionResult> UpdateSensor([FromBody] SensorModel model)
+        public async Task<IActionResult> UpdateSensor([FromBody] SensorDto dto, [FromQuery] string id)
         {
             try
             {
+                var model = new SensorModel
+                {
+                    Id = id,
+                    Code = dto.Code,
+                };
                 return Ok(await _sensorService.UpdateSensor(model));
             }
             catch (Exception ex)
