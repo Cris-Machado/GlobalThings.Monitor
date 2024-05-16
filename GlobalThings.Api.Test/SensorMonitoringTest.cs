@@ -30,7 +30,6 @@ namespace YourNamespace.Tests
         [Fact]
         public async Task MonitorSensorsAsync_ShouldSendEmail_WhenMeasurementsAreOutOfBounds()
         {
-            // Arrange
             var sensor = CreateSensorWithMeasurements(new List<MeasurementModel>
             {
                 new MeasurementModel { Value = 0.5m, DateTime = DateTime.UtcNow },
@@ -52,7 +51,6 @@ namespace YourNamespace.Tests
         [Fact]
         public async Task MonitorSensorsAsync_ShouldSendEmail_WhenAverageIsWithinErrorMargin()
         {
-            // Arrange
             var sensor = CreateSensorWithMeasurements(new List<MeasurementModel>
             {
                 new MeasurementModel { Value = 49.5m, DateTime = DateTime.UtcNow },
@@ -72,7 +70,6 @@ namespace YourNamespace.Tests
         [Fact]
         public async Task MonitorSensorsAsync_ShouldNotSendEmail_WhenNoConditionIsMet()
         {
-            // Arrange
             var sensor = CreateSensorWithMeasurements(new List<MeasurementModel>
             {
                 new MeasurementModel { Value = 25.0m, DateTime = DateTime.UtcNow },
@@ -84,10 +81,8 @@ namespace YourNamespace.Tests
 
             _unitOfWorkMock.Setup(u => u.SensorRepository.ListAllActive()).ReturnsAsync(new List<SensorModel> { sensor });
 
-            // Act
             await _service.MonitorSensorsAsync();
 
-            // Assert
             _emailServiceMock.Verify(e => e.SendEmail(It.IsAny<string>()), Times.Never);
         }
     }
