@@ -17,29 +17,6 @@ namespace GlobalThings.Domain.Services
 
         public void SendEmail(string body)
         {
-            //var message = new MailMessage(_options.Value.Emailsettings.FromAddress ?? "", _options.Value.Emailsettings.ToAddress ?? "")
-            //{
-            //    Subject = _options.Value.Emailsettings.Subject ?? "",
-            //    Body = body
-            //};
-
-            //var smtpClient = new SmtpClient(_options.Value.SmtpSettings.Server)
-            //{
-            //    Port = _options.Value.SmtpSettings.Port,
-            //    Credentials = new NetworkCredential(_options.Value.SmtpSettings.Username, _options.Value.SmtpSettings.Password),
-            //    EnableSsl = true
-            //};
-
-            //try
-            //{
-            //    smtpClient.Send(message);
-            //    Console.WriteLine("E-mail enviado com sucesso!");
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine($"Erro ao enviar o e-mail: {ex.Message}");
-            //}
-
             MailMessage emailMessage = new MailMessage();
             try
             {
